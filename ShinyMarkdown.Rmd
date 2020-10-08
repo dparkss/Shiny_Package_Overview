@@ -16,13 +16,17 @@ html_document:
 runtime: shiny   
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=FALSE, results='hide', message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
+library(shiny)
 ```
 
 ## Package Overview
 Shiny is an open source R package that simplifies building interactive web applications directly from R. It allows users to translate their analyses to interactive web applications without requiring HTML, CSS, or JavaScript knowledge. You can also extend your Shiny apps with CSS themes, htmlwidgets, and JavaScript actions.
+
+```{r, fig.align='right', fig.cap="Shiny", echo=FALSE}
+knitr::include_graphics('Shiny_logo.jpg')
+```
 
 
 ## Background 
@@ -125,11 +129,6 @@ When you are finally ready, you can launch your app with the **ShinyApp()** func
 
 ## Example 1
 ```{r}
-library(ggplot2)
-library(tidyverse)
-library(dslabs)
-
-
 # Define UI ----
 ui1 <- fluidPage(
   titlePanel(code("Hello! Let's look at some data science quotes.")),
@@ -213,6 +212,10 @@ shinyApp(ui = ui1, server = server1)
 
 ### Data Processing 
 ```{r results='hide', message=FALSE, warning=FALSE}
+
+library(ggplot2)
+library(tidyverse)
+library(dslabs)
 
 disease_data <- us_contagious_diseases 
 disease_data <- (disease_data <-  disease_data %>% group_by(disease, state)) %>%
@@ -389,7 +392,7 @@ Shiny is a very important package that should be utilized by data scientists to 
 
 Our greatest criticism for Shiny is its inefficiency when updating data. If a user uses a large complex data set, then every time a user interacts with a chart the server refreshes all aspects of the code. This can create a lag. In turn, a slow performance can then disincetivize users from interacting with the data. 
 
-In order to get around this issue, we needed to add a function for the "reactive" expression. This additional line of code specifies that we only want to update a specific portion of the output. Note, however, that this flaw can be solved and is only noticeable with large dat asets and more complicated user interfaces/server objects and ShinyApp programs.
+In order to get around this issue, we needed to add a function for the "reactive" expression. This additional line of code specifies that we only want to update a specific portion of the output. Note, however, that this flaw can be solved and is only noticeable with large data sets and more complicated user interfaces/server objects and ShinyApp programs.
 
 In all, the benefits to using Shiny far outweigh the inefficiencies. The interactive graphs are helpful in understanding the data at a deeper level. Once an output is created it is user friendly, and it can help tell a story that would not be possible with a static graphic or web page.
 
